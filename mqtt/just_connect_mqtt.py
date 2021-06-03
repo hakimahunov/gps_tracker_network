@@ -8,7 +8,7 @@ def on_connect(client, userdata, flags, rc):
 
     # Subscribing in on_connect() means that if we lose the connection and
     # reconnect then subscriptions will be renewed.
-    client.subscribe("$SYS/#")
+    # client.subscribe("$SYS/#")
 
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
@@ -23,8 +23,8 @@ client.on_message = on_message
 client.connect("10.0.0.1", 1883, 60)
 
 
-# Subscribe to the "test_temperature" topic.
-test_topic = "test_temperature"
+# Subscribe to the "gps_network_traker" topic.
+test_topic = "gps_network_traker"
 client.subscribe(test_topic)
 
 # Blocking call that processes network traffic, dispatches callbacks and
