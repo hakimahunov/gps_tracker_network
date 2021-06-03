@@ -39,8 +39,8 @@ The [*build_docker_images.sh*](build_docker_images.sh) file builds these three n
 * the custom dev_test image, *my_dev_test*
 
 Finally, there are three python files:
-* [*drone_client_mqtt.py*](./drone_client_mqtt.py) - connect to the MQTT broker and publish a random number to the "gps_network_traker" topic;
-* [*just_connect_mqtt.py*](./just_connect_mqtt.py) - connect to the MQTT broker and subscribe to the "gps_network_traker" topic;
+* [*drone_client_mqtt.py*](./drone_client_mqtt.py) - connect to the MQTT broker and publish a random number to the "gps_network_tracker" topic;
+* [*just_connect_mqtt.py*](./just_connect_mqtt.py) - connect to the MQTT broker and subscribe to the "gps_network_tracker" topic;
 * [*topology.py*](./topology.py) - create a simple topology with one switch, connected to three hosts:
     * h1 - host srv1, the MQTT broker;
     * h2 - host srv2, the drone MQTT client;  
@@ -54,4 +54,4 @@ Finally, there are three python files:
 2. in the comnetsemu virtual machine, run *sudo ./build_docker_images.sh*;
 3. in comnetsemu virtual machine, run *sudo python3 ./topology.py*. This will spawn a terminal connected to srv3 (on host h3);
 4. in the spawned terminal, run *python3 ../home/just_connect.py*;
-5. in the spawned terminal, you should see the messages published by srv2.
+5. in the spawned terminal, you should see a new message every second. That message is published in the "gps_network_tracker" topic by srv2 and forwarded by srv1 to srv3.

@@ -22,9 +22,8 @@ client.on_message = on_message
 # The arguments are the hostname/IP, port, keepalive and bind_address (optional)
 client.connect("10.0.0.1", 1883, 60)
 
-
-# Subscribe to the "gps_network_traker" topic.
-test_topic = "gps_network_traker"
+# Subscribe to the "gps_tracker_network" topic.
+test_topic = "gps_tracker_network"
 client.subscribe(test_topic)
 
 # Blocking call that processes network traffic, dispatches callbacks and
