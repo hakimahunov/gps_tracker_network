@@ -31,16 +31,17 @@ Topics are removed from an MQTT Broker when:
 In this folder, you will find three Dockerfiles:
 * [*DockerfileMyMosquitto*](DockerfileMyMosquitto) - starting from the eclipse-mosquitto base image, specify an [alternative configuration file](./mosquitto.conf) to expose the broker to the network;
 * [*DockerfileDroneMQTTClient*](DockerfileDroneMQTTClient) - starting from a Python3 base image, install an MQTT client, **Paho** (an [Eclipse Foundation](https://www.eclipse.org/org/foundation/) project) and copy the [*drone_client_mqtt.py*](./drone_client_mqtt.py) file in the `/home` directory;
-* [*DockerfileMyDevTest*](DockerfileMyDevTest) - starting from the comnetsemu dev_test base image, install python3, pip, Paho and copy the [*just_connect_mqtt.py*](./just_connect_mqtt.py) file in the `/home` directory. This image can be used to manually connect to the MQTT broker, subscribe to topics and check that everything is working.
+* [*DockerfileMyDevTest*](DockerfileMyDevTest) - starting from the comnetsemu dev_test base image, install python3, pip, Paho and copy the [*just_connect_mqtt.py*](./just_connect_mqtt.py), [*drone_client_mqtt.py*](./drone_client_mqtt.py) and [*mock_server_mqtt.py*](./mock_server_mqtt.py) files in the `/home` directory. This image can be used to manually connect to the MQTT broker, subscribe to topics and check that everything is working.
 
 The [*build_docker_images.sh*](build_docker_images.sh) file builds these three new images:
 * the drone MQTT client, *drone_mqtt_client*
-* the custom MQTT broker, *broker_mqtt_client*
+* the custom MQTT broker, *broker_mqtt_broker*
 * the custom dev_test image, *my_dev_test*
 
-Finally, there are three python files:
-* [*drone_client_mqtt.py*](./drone_client_mqtt.py) - connect to the MQTT broker and publish a random number to the "gps_network_tracker" topic;
-* [*just_connect_mqtt.py*](./just_connect_mqtt.py) - connect to the MQTT broker and subscribe to the "gps_network_tracker" topic;
+Finally, there are four python files:
+* [*drone_client_mqtt.py*](./drone_client_mqtt.py) - connect to the MQTT broker simulating the presence of a drone over Trento. Initially, generate a random position and publish it in a public topic "positions". Then, subscribe to a private topic ("command_${drone_id}") from which receive the server commands. When a command is received, parse the given position and simulate the drone moving to that position by sending position updates every second;
+* [*just_connect_mqtt.py*](./just_connect_mqtt.py) - connect to the MQTT broker and subscribe to the "positions" and "log" topic;
+* [*mock_server_mqtt.py*](./mock_server_mqtt.py) - simulate a server sending commands to the drones;
 * [*topology.py*](./topology.py) - create a simple topology with one switch, connected to three hosts:
     * h1 - host srv1, the MQTT broker;
     * h2 - host srv2, the drone MQTT client;  
