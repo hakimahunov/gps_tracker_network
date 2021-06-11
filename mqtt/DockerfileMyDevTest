@@ -7,6 +7,8 @@ RUN apk add py-pip
 # - install paho
 RUN pip install paho-mqtt
 COPY ./just_connect_mqtt.py /home/just_connect_mqtt.py
+COPY ./mock_server_mqtt.py /home/mock_server_mqtt.py
+COPY ./drone_client_mqtt.py /home/drone_client_mqtt.py
 
 # Define default command.
 CMD ["bash"]

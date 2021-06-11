@@ -48,24 +48,30 @@ if __name__ == "__main__":
     print("Started the newtork")
 
     srv1 = mgr.addContainer(
-        "srv1", "h1", "broker_mqtt_client", "/usr/sbin/mosquitto -c /mosquitto/config/mosquitto2.conf", docker_args={}
+        "srv1", "h1", "broker_mqtt_broker", "/usr/sbin/mosquitto -c /mosquitto/config/mosquitto2.conf", docker_args={}
     )
     print("Added the MQTT broker")
 
     srv2 = mgr.addContainer(
-        "srv2", "h2", "drone_mqtt_client", "python /home/drone_client_mqtt.py", docker_args={}
+        "srv2", "h2", "drone_mqtt_client", "python3 /home/drone_client_mqtt.py", docker_args={}
     )
     print("Added the drone MQTT client")
 
     srv3 = mgr.addContainer("srv3", "h3", "my_dev_test", "bash", docker_args={})
-    print("Added the my dev test")
+    print("Added the my dev test 1")
+
+    srv4 = mgr.addContainer("srv4", "h3", "my_dev_test", "bash", docker_args={})
+    print("Added the my dev test 2")
 
     spawnXtermDocker("srv3")
+    spawnXtermDocker("srv4")
     CLI(net)
 
 
     mgr.removeContainer("srv1")
     mgr.removeContainer("srv2")
     mgr.removeContainer("srv3")
+    mgr.removeContainer("srv4")
     net.stop()
     mgr.stop()
+
