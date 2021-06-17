@@ -102,7 +102,7 @@ Go to working directory webserver_mqtt_drones
     ```bash
     sudo python3 topology.py
     ```  
-3. From WebClient (Xterm) start links web browser to observe the drones positions within Trento:
+3. From WebClient (Xterm), start links web browser to observe the drones positions within Trento:
     ```bash
     links 10.0.0.8:3000/positions
     ```
@@ -118,6 +118,6 @@ Go to working directory webserver_mqtt_drones
     ```bash
     sudo docker cp WebClient:/root/positions.kml .
     ```
-Note: positions should be updated after each movement. For example, run 3, then 5, then 4. After that,  again 3 and 5. Doing so, you will have two different positions file that can be compared on Google Maps.
+Note: the positions should be updated after each movement. For example, run 3, then 5, then 4. After that,  again 3 and 5. Doing so, you will have two different positioning files that can be compared on Google Maps.
 
 ![](maps-compare.gif)
