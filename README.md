@@ -70,7 +70,6 @@ TBD
     ├── Dockerfile.webserver
     ├── drone_client_mqtt.py
     ├── mosquitto.conf
-    ├── README.md
     ├── topology.py
     ├── topology_star.py
     └── webserver
