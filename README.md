@@ -43,7 +43,7 @@ The network is sliced into three parts delineated by different colors in the fig
 TBD
 ```
 .
-├── mqtt
+├── mqtt_tests
 │   ├── build_docker_images.sh
 │   ├── connect_nodes.sh
 │   ├── controller.py
@@ -61,7 +61,7 @@ TBD
 ├── README.md
 ├── topology.png
 ├── maps-compare.gif
-└── webserver_mqtt
+└── webserver_mqtt_drones
     ├── build_docker_images.sh
     ├── connect_nodes.sh
     ├── Dockerfile.client
@@ -97,7 +97,11 @@ Go to working directory webserver_mqtt_drones
 1. Build the images:
     ```bash
     sudo ./build_docker_images.sh
-    ```  
+    ```
+    or
+    ```bash
+    sudo bash build_docker_images.sh
+    ```
 2. Start mininet and docker containers:
     ```bash
     sudo python3 topology.py
