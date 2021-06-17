@@ -78,7 +78,7 @@ class SimpleSwitch(app_manager.RyuApp):
         else:
             out_port = ofproto.OFPP_FLOOD
 
-        if dst == "00:00:00:00:00:07" or src == "00:00:00:00:00:07":
+        if dst == "00:00:00:00:00:07" or dst == "ff:ff:ff:ff:ff:ff" or src == "00:00:00:00:00:07":
             # exchange of messages with the MQTT broker
             actions = [datapath.ofproto_parser.OFPActionOutput(out_port)]
         elif dpid != 4:

@@ -14,13 +14,9 @@ if __name__ == "__main__":
 
     print("*** Creating the net")
 
-    net = Containernet(controller=RemoteController, link=TCLink, xterms=False, autoSetMacs=False)
+    net = Containernet(controller=Controller, link=TCLink, xterms=False, autoSetMacs=False)
     
     mgr = VNFManager(net)
-
-    print("*** Adding the controller")
-    controller = RemoteController("c1", ip="127.0.0.1", port=6633)
-    net.addController(controller)
 
     print("*** Creating hosts")
     # In our topology we have 6 drones (h1->h6),
@@ -89,51 +85,48 @@ if __name__ == "__main__":
     print("*** Connecting nodes")
     os.system("sudo bash ./connect_nodes.sh")
     
-    print("*** Adding the drones")
-    srv1 = mgr.addContainer(
-        "srv1", "D1", "drone_mqtt_client", "python3 /home/drone_client_mqtt.py", docker_args={}
-    )
-    srv2 = mgr.addContainer(
-        "srv2", "D2", "drone_mqtt_client", "python3 /home/drone_client_mqtt.py", docker_args={}
-    )
-    srv3 = mgr.addContainer(
-        "srv3", "D3", "drone_mqtt_client", "python3 /home/drone_client_mqtt.py", docker_args={}
-    )
-    srv4 = mgr.addContainer(
-        "srv4", "D4", "drone_mqtt_client", "python3 /home/drone_client_mqtt.py", docker_args={}
-    )
-    srv5 = mgr.addContainer(
-        "srv5", "D5", "drone_mqtt_client", "python3 /home/drone_client_mqtt.py", docker_args={}
-    )
-    srv6 = mgr.addContainer(
-        "srv6", "D6", "drone_mqtt_client", "python3 /home/drone_client_mqtt.py", docker_args={}
-    )
-    
     print("*** Adding the MQTT broker")
     srv7 = mgr.addContainer(
-        "srv7", "MB", "broker_mqtt_broker", "/usr/sbin/mosquitto -c /mosquitto/config/mosquitto2.conf", docker_args={}
+        "MQTTBroker", "MB", "broker_mqtt_broker", "/usr/sbin/mosquitto -c /mosquitto/config/mosquitto2.conf", docker_args={}
+    )
+    
+    print("*** Adding the drones")
+    srv1 = mgr.addContainer(
+        "dr1", "D1", "drone_mqtt_client", "python3 /home/drone_client_mqtt.py", docker_args={}
+    )
+    srv2 = mgr.addContainer(
+        "dr2", "D2", "drone_mqtt_client", "python3 /home/drone_client_mqtt.py", docker_args={}
+    )
+    srv3 = mgr.addContainer(
+        "dr3", "D3", "drone_mqtt_client", "python3 /home/drone_client_mqtt.py", docker_args={}
+    )
+    srv4 = mgr.addContainer(
+        "dr4", "D4", "drone_mqtt_client", "python3 /home/drone_client_mqtt.py", docker_args={}
+    )
+    srv5 = mgr.addContainer(
+        "dr5", "D5", "drone_mqtt_client", "python3 /home/drone_client_mqtt.py", docker_args={}
+    )
+    srv6 = mgr.addContainer(
+        "dr6", "D6", "drone_mqtt_client", "python3 /home/drone_client_mqtt.py", docker_args={}
     )
     
     print("*** Adding the MQTT client")
-    srv8 = mgr.addContainer("srv8", "MC", "server", "", docker_args={})
+    srv8 = mgr.addContainer("MQTTClient", "MC", "server", "", docker_args={})
     
     print("*** Adding the web server")
-    srv9 = mgr.addContainer("srv9", "WS", "client", "bash", docker_args={})
-    
-    spawnXtermDocker("srv8")
-    spawnXtermDocker("srv9")
+    srv9 = mgr.addContainer("WebServer", "WS", "client", "bash", docker_args={})
     
     CLI(net)
     
-    mgr.removeContainer("srv1")
-    mgr.removeContainer("srv2")
-    mgr.removeContainer("srv3")
-    mgr.removeContainer("srv4")
-    mgr.removeContainer("srv5")
-    mgr.removeContainer("srv6")
-    mgr.removeContainer("srv7")
-    mgr.removeContainer("srv8")
-    mgr.removeContainer("srv9")
+    mgr.removeContainer("dr1")
+    mgr.removeContainer("dr2")
+    mgr.removeContainer("dr3")
+    mgr.removeContainer("dr4")
+    mgr.removeContainer("dr5")
+    mgr.removeContainer("dr6")
+    mgr.removeContainer("MQTTBroker")
+    mgr.removeContainer("MQTTClient")
+    mgr.removeContainer("WebServer")
 
     net.stop()    
     mgr.stop()

@@ -7,20 +7,21 @@ from comnetsemu.cli import CLI, spawnXtermDocker
 from comnetsemu.net import Containernet, VNFManager
 from mininet.link import TCLink
 from mininet.log import info, setLogLevel
-from mininet.node import RemoteController, Controller
+#from mininet.node import RemoteController, Controller
     
     
 if __name__ == "__main__":
 
     print("*** Creating the net")
 
-    net = Containernet(controller=RemoteController, link=TCLink, xterms=False, autoSetMacs=False)
+    #net = Containernet(controller=RemoteController, link=TCLink, xterms=False, autoSetMacs=False)
+    net = Containernet(link=TCLink, xterms=False, autoSetMacs=False)
     
     mgr = VNFManager(net)
 
     print("*** Adding the controller")
-    controller = RemoteController("c1", ip="127.0.0.1", port=6633)
-    net.addController(controller)
+    #controller = RemoteController("c1", ip="127.0.0.1", port=6633)
+    #net.addController("c1")
 
     print("*** Creating hosts")
     # In our topology we have 6 drones (h1->h6),
@@ -95,6 +96,9 @@ if __name__ == "__main__":
     
     print("*** Starting the network")
     net.start()
+    
+    os.system("sudo bash ./connect_nodes.sh")
+    
     CLI(net)
 
     net.stop()
