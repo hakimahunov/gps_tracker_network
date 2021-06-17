@@ -60,7 +60,7 @@ app.get('/move', function(req, res, next) {  // Pass drone ID as an URL paramete
 }); 
 
 // Download drone positions file in kml format                                
-app.get('/kml', function(req, res, next) {                                                
+app.get('/genmap', function(req, res, next) {                                                
     // Create positions file
     fs.writeFileSync('/tmp/positions.kml', mqttClient.generateKML());
     

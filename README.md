@@ -41,7 +41,83 @@ The network is sliced into three parts delineated by different colors in the fig
 ## Content of the project
 
 TBD
+```
+.
+├── mqtt
+│   ├── build_docker_images.sh
+│   ├── connect_nodes.sh
+│   ├── controller.py
+│   ├── DockerfileDroneMQTTClient
+│   ├── DockerfileMyDevTest
+│   ├── DockerfileMyMosquitto
+│   ├── drone_client_mqtt.py
+│   ├── just_connect_mqtt.py
+│   ├── mock_server_mqtt.py
+│   ├── mosquitto.conf
+│   ├── README.md
+│   ├── topology.py
+│   ├── topology_Riz.py
+│   └── topology_w_o_images.py
+├── README.md
+├── topology.png
+├── maps-compare.gif
+└── webserver_mqtt
+    ├── build_docker_images.sh
+    ├── connect_nodes.sh
+    ├── Dockerfile.client
+    ├── Dockerfile.drone
+    ├── Dockerfile.mqtt
+    ├── Dockerfile.webserver
+    ├── drone_client_mqtt.py
+    ├── mosquitto.conf
+    ├── README.md
+    ├── topology.py
+    ├── topology_star.py
+    └── webserver
+        ├── app.js
+        ├── bin
+        │   └── www
+        ├── package.json
+        ├── public
+        │   ├── javascripts
+        │   │   └── mqtt.js
+        │   └── stylesheets
+        │       └── style.css
+        ├── routes
+        │   └── index.js
+        └── views
+            ├── drone.pug
+            ├── index.pug
+            └── move.pug
+```
 
 ## How to Run
+Go to working directory webserver_mqtt_drones
 
-TBD
+1. Build the images:
+    ```bash
+    sudo ./build_docker_images.sh
+    ```  
+2. Start mininet and docker containers:
+    ```bash
+    sudo python3 topology.py
+    ```  
+3. From WebClient (Xterm) start links web browser to observe the drones positions within Trento:
+    ```bash
+    links 10.0.0.8:3000/positions
+    ```
+4. To move any drone to a new random position, send the request (move?id=drone_id) to the WebServer:
+    ```bash
+    links 10.0.0.8:3000/move?id=drone3
+    ```
+5. To generate the map file (.kml) suitable for Google Maps app, send the following request to the WebServer:
+    ```bash
+    links 10.0.0.8:3000/genmap
+    ```
+6. To copy the file from the WebClient host, run the following command on your host machine:
+    ```bash
+    sudo docker cp WebClient:root/positions.kml
+    ```
+Note: positions should be updated after each movement. For example, run 3, then 5, then 4. After that,  again 3 and 5. Doing so, you will have two different positions file that can be compared on Google Maps.
+
+![](maps-compare.gif)
