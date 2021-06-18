@@ -20,7 +20,7 @@ if __name__ == "__main__":
 
     print("*** Creating hosts")
     # In our topology we have 6 drones (h1->h6),
-    # 1 MQTT broker (h7), 1 web client (h8) and 1 web server (h9)
+    # 1 MQTT broker (h7), 1 web server (h8) and 1 web client (h9)
     
     h1 = net.addDockerHost(
         "D1", dimage="my_dev_test", ip="10.0.0.1", mac="00:00:00:00:00:01", docker_args={"hostname":"drone1"}
