@@ -24,7 +24,12 @@ The topology of the network is presented in the figure below. Given six drones f
   - responds to the Client, sending back an html web page or generating a .kml file with the drones' position
   - sends a request to the MQTT broker to subscribe to a topic
   - publishes a MQTT message to order a drone to move to a random position
-* MQTT broker (refer to the separate folder)
+* MQTT broker
+  - allows for connections, creations of topics and subscribe/publish operations. We consider the following topics:
+    - "log": where each component publishes logs for debug purposes
+    - "positions": where drones publish updates on their position
+    - "command_${ID}": where the Web Server sends commands to the drone with the specified ID to move to a given position
+    - "current_position": where the Web Server sends commands to all drones to receive their current position
 * Drone
   - moves to a new position
   - sends a request to the MQTT broker to subscribe to a topic
@@ -43,21 +48,6 @@ The network is sliced into three parts delineated by different colors in the fig
 TBD
 ```
 .
-├── mqtt_tests
-│   ├── build_docker_images.sh
-│   ├── connect_nodes.sh
-│   ├── controller.py
-│   ├── DockerfileDroneMQTTClient
-│   ├── DockerfileMyDevTest
-│   ├── DockerfileMyMosquitto
-│   ├── drone_client_mqtt.py
-│   ├── just_connect_mqtt.py
-│   ├── mock_server_mqtt.py
-│   ├── mosquitto.conf
-│   ├── README.md
-│   ├── topology.py
-│   ├── topology_Riz.py
-│   └── topology_w_o_images.py
 ├── README.md
 ├── topology.png
 ├── maps-compare.gif
