@@ -14,21 +14,21 @@ This project has been implemented by the following contributors as part of the P
 
 ### Functionality
 
-The topology of the system's network is presented in the figure below. The aim of the system is to allow the user to move the drones by sending a command to the web server and to observe the drones current position on a map in a web-browser. The functionality of the network's components are the following:
+The topology of the network is presented in the figure below. Given six drones flying over Trento, the aim of the system is to allow the user to move the drones by sending a command to the web server and to observe the drones' current position on a map in a web-browser. The functionality of the network's components are the following:
 
 * Client 
-  - sends the request to the web server containing ID and new coordinates (longitude and latitude) of a drone
-  - displays the drones position in a web-browser
-  - sends the request to the web server to generate a .kml file suitable for uploading to Google Maps application
+  - sends the request to the web server containing the ID of a drone to move to a random position (longitude and latitude)
+  - displays the drones' position in a terminal-based web-browser
+  - sends the request to the web server to generate a .kml file suitable for displaying the drones' position in Google Maps
 * Web server
-  - responds to the client, sending back an html web page or generating a .kml file
-  - subscribes to a topic within MQTT protocol
-  - publish a message within MQTT protocol when drone movement is needed
+  - responds to the Client, sending back an html web page or generating a .kml file with the drones' position
+  - sends a request to the MQTT broker to subscribe to a topic
+  - publishes a MQTT message to order a drone to move to a random position
 * MQTT broker (refer to the separate folder)
 * Drone
   - moves to a new position
-  - subscribes to a topic within MQTT protocol
-  - publish a message within MQTT protocol when drone coordinates are required
+  - sends a request to the MQTT broker to subscribe to a topic
+  - publishes a MQTT message when the Web Server asks for the drone's position
 * Controller
   - manages the SDN (Software Defined Network)
 
@@ -105,7 +105,7 @@ Go to working directory webserver_mqtt_drones
     ```bash
     sudo python3 topology.py
     ```  
-3. From WebClient (Xterm), start links web browser to observe the drones positions within Trento:
+3. From WebClient (Xterm), start links web browser to observe the drones positions over Trento:
     ```bash
     links 10.0.0.8:3000/positions
     ```
