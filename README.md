@@ -58,6 +58,9 @@ where, D(id) - drone, MB - mqtt broker, WS - web server, WC - web client.
 ├── README.md                   : This file
 ├── pingall.png                 : pingall image in this description
 ├── topology.png                : topology image in this description
+├── positionsBefore.png         : Initial drones positions in the example in this description
+├── positionsAfter.png          : Final drones positions in the example in this description
+├── moved.png                   : Command to move drones in the example in this description
 ├── maps-compare.gif            : maps comparison image in this description
 └── webserver_mqtt_drones       : Working directory
     ├── build_docker_images.sh  : Bash script for building all needed docker images
@@ -106,18 +109,36 @@ or
 ```bash
   links 10.0.0.8:3000/positions
 ```
-4. To move any drone to a new random position, send the request (move?id=drone_id) to the WebServer:
-```bash
-  links 10.0.0.8:3000/move?id=drone3
-```
-5. To generate the map file (.kml) suitable for Google Maps app, send the following request to the WebServer:
+  ![](positionsBefore.png)
+  
+4. To generate the map file (.kml) suitable for Google Maps app, send the following request to the WebServer:
 ```bash
   links 10.0.0.8:3000/genmap
 ```
-6. To copy the file from the WebClient host, run the following command on your host machine:
+
+5. To copy the file from the WebClient host, run the following command on your host machine:
 ```bash
   $ sudo docker cp WebClient:/root/positions.kml .
 ```
-Note: the positions should be updated after each movement. For example, run 3, then 5, then 4. After that,  again 3 and 5. Doing so, you will have two different positioning files that can be compared on Google Maps.
 
-![](maps-compare.gif)
+6. To move any drone to a new random position, send the request (move?id=drone_id) to the WebServer:
+```bash
+  links 10.0.0.8:3000/move?id=drone3
+```
+  ![](moved.png)
+
+7. From WebClient (Xterm), start links web browser to observe the new position of drone 3 over Trento:
+```bash
+  links 10.0.0.8:3000/positions
+```
+  ![](positionsAfter.png)
+  
+8. Repeat steps 4 and 5 to obtain a new map file (.kml)
+```bash
+  links 10.0.0.8:3000/positions
+```
+  ![](positionsAfter.png)
+  
+9. Finally, you have two different positioning files that can be compared on Google Maps.
+
+  ![](maps-compare.gif)
