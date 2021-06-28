@@ -94,47 +94,49 @@ where, D(id) - drone, MB - mqtt broker, WS - web server, WC - web client.
 Go to working directory webserver_mqtt_drones
 
 1. Build the images:
-```bash
-  $ sudo ./build_docker_images.sh
-```
-or
-```bash
-  $ sudo bash build_docker_images.sh
-```
+    ```bash
+      $ sudo ./build_docker_images.sh
+    ```
+    or
+    ```bash
+      $ sudo bash build_docker_images.sh
+    ```
+    
 2. Start mininet and docker containers:
-```bash
-  $ sudo python3 topology.py
-```  
+    ```bash
+      $ sudo python3 topology.py
+    ```  
+    
 3. From WebClient (Xterm), start links web browser to observe the initial drones' positions over Trento:
-```bash
-  links 10.0.0.8:3000/positions
-```
-  ![](positionsBefore.png)
+    ```bash
+      links 10.0.0.8:3000/positions
+    ```
+    ![](positionsBefore.png)
   
 4. To generate the map file (.kml) suitable for Google Maps app, send the following request to the WebServer:
-```bash
-  links 10.0.0.8:3000/genmap
-```
+    ```bash
+      links 10.0.0.8:3000/genmap
+    ```
 
 5. To copy the file from the WebClient host, run the following command on your host machine:
-```bash
-  $ sudo docker cp WebClient:/root/positions.kml .
-```
+    ```bash
+      $ sudo docker cp WebClient:/root/positions.kml .
+    ```
 
 6. To move any drone to a new random position, send the request (move?id=drone_id) to the WebServer:
-```bash
-  links 10.0.0.8:3000/move?id=drone3
-```
-  ![](moved.png)
+    ```bash
+      links 10.0.0.8:3000/move?id=drone3
+    ```
+    ![](moved.png)
 
 7. Start links web browser to observe the new position of drone 3 over Trento:
-```bash
-  links 10.0.0.8:3000/positions
-```
-  ![](positionsAfter.png)
+    ```bash
+      links 10.0.0.8:3000/positions
+    ```
+    ![](positionsAfter.png)
   
 8. Repeat steps 4 and 5 to obtain a new map file (.kml)
   
 9. You now have two different positioning files that can be compared on Google Maps showing that drone 3 actually moved.
 
-  ![](maps-compare.gif)
+    ![](maps-compare.gif)
