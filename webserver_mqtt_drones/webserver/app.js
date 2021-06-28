@@ -37,6 +37,7 @@ app.use('/', indexRouter);  // Index page
 // Display drone positions                                        
 app.get('/positions', function(req, res, next) {                        
     mqttClient.sendMessage("current_position", "")
+    mqttClient.drone_position_json = [] // Clear old positions
     setTimeout(function(){
     	res.render('drone', {
     	    title: 'positions',
@@ -48,6 +49,13 @@ app.get('/positions', function(req, res, next) {
 
 // Change drone's position
 app.get('/move', function(req, res, next) {  // Pass drone ID as an URL parameter here, e.g, xx.xx.xx.xx:xxxx/move?id=drone1                  
+    if (req.query.id == undefined) {
+    	res.render('move', {
+    	    title: 'movement',
+    	    message: 'You need to specify the ID of a drone to move. Like "/move?id=drone3"'
+    	});
+    
+    }
     mqttClient.sendMessage("command_" + req.query.id, req.query.id + "_" + getRandom(minLat, maxLat) + "_" + getRandom(minLon, maxLon) + "_")
     mqttClient.drone_position_json = [] // Clear old positions
     setTimeout(function(){
