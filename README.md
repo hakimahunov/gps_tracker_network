@@ -34,83 +34,90 @@ The topology of the network is presented in the figure below. Given six drones f
   - moves to a new position
   - sends a request to the MQTT broker to subscribe to a topic
   - publishes a MQTT message when the Web Server asks for the drone's position
-* Controller
-  - manages the SDN (Software Defined Network)
 
 ### Topology
 
-The network is sliced into three parts delineated by different colors in the figure. Devices belonging to different subnets are not able to communicate to each other.
+The network is sliced into three parts delineated by different colors in the figure. Devices belonging to different subnets are not able to communicate to each other. 
 
 ![](topology.png)
 
+Thus, the following command in the mininet console
+```bash
+  > pingall
+```
+will output the following result:
+
+![](pingall.png)
+
+where, D(id) - drone, MB - mqtt broker, WS - web server, WC - web client. 
+
 ## Content of the project
 
-TBD
 ```
 .
-├── README.md
-├── topology.png
-├── maps-compare.gif
-└── webserver_mqtt_drones
-    ├── build_docker_images.sh
-    ├── connect_nodes.sh
-    ├── Dockerfile.client
-    ├── Dockerfile.drone
-    ├── Dockerfile.mqtt
-    ├── Dockerfile.webserver
-    ├── drone_client_mqtt.py
-    ├── mosquitto.conf
-    ├── topology.py
-    ├── topology_star.py
-    └── webserver
-        ├── app.js
+├── README.md                   : This file
+├── pingall.png  	            : pingall image in this description
+├── topology.png                : topology image in this description
+├── maps-compare.gif            : maps comparison image in this description
+└── webserver_mqtt_drones       : Working directory
+    ├── build_docker_images.sh  : Bash script for building all needed docker images
+    ├── connect_nodes.sh        : Bash script for network traffic management
+    ├── Dockerfile.client       : Web client's docker image
+    ├── Dockerfile.drone        : Drone's docker image
+    ├── Dockerfile.mqtt         : MQTT broker's docker image
+    ├── Dockerfile.webserver    : Web servers's docker image
+    ├── drone_client_mqtt.py    : Drone's behavior and MQTT connection descriptions 
+    ├── mosquitto.conf          : MQTT broker's configuration file
+    ├── topology.py             : The main network topology
+    └── webserver               : Web server node.js applications
+        ├── app.js              : Web server's behavior description
         ├── bin
-        │   └── www
+        │   └── www             : Web application's binary file
         ├── package.json
         ├── public
         │   ├── javascripts
-        │   │   └── mqtt.js
+        │   │   └── mqtt.js     : Web server's MQTT connection description
         │   └── stylesheets
-        │       └── style.css
+        │       └── style.css   : Cascading Style Sheets file for the web application
         ├── routes
-        │   └── index.js
+        │   └── index.js        : Standard node.js index page routing 
         └── views
-            ├── drone.pug
-            ├── index.pug
-            └── move.pug
+            ├── drone.pug       : HTML page template for drone positions (/positions)
+            ├── index.pug       : HTML page template for index page (/)
+            └── move.pug        : HTML page template for moving a drone (/move)
 ```
 
 ## How to Run
 Go to working directory webserver_mqtt_drones
 
 1. Build the images:
-    ```bash
-    sudo ./build_docker_images.sh
-    ```
-    or
-    ```bash
-    sudo bash build_docker_images.sh
-    ```
+```bash
+  $ sudo ./build_docker_images.sh
+```
+or
+```bash
+  $ sudo bash build_docker_images.sh
+```
 2. Start mininet and docker containers:
-    ```bash
-    sudo python3 topology.py
-    ```  
+```bash
+  $ sudo python3 topology.py
+```  
 3. From WebClient (Xterm), start links web browser to observe the drones positions over Trento:
-    ```bash
-    links 10.0.0.8:3000/positions
-    ```
+```bash
+  links 10.0.0.8:3000/positions
+```
 4. To move any drone to a new random position, send the request (move?id=drone_id) to the WebServer:
-    ```bash
-    links 10.0.0.8:3000/move?id=drone3
-    ```
+```bash
+  links 10.0.0.8:3000/move?id=drone3
+```
 5. To generate the map file (.kml) suitable for Google Maps app, send the following request to the WebServer:
-    ```bash
-    links 10.0.0.8:3000/genmap
-    ```
+```bash
+  links 10.0.0.8:3000/genmap
+```
 6. To copy the file from the WebClient host, run the following command on your host machine:
-    ```bash
-    sudo docker cp WebClient:/root/positions.kml .
-    ```
+```bash
+  $ sudo docker cp WebClient:/root/positions.kml .
+```
 Note: the positions should be updated after each movement. For example, run 3, then 5, then 4. After that,  again 3 and 5. Doing so, you will have two different positioning files that can be compared on Google Maps.
 
 ![](maps-compare.gif)
