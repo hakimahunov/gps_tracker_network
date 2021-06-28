@@ -134,10 +134,6 @@ or
   ![](positionsAfter.png)
   
 8. Repeat steps 4 and 5 to obtain a new map file (.kml)
-```bash
-  links 10.0.0.8:3000/positions
-```
-  ![](positionsAfter.png)
   
 9. Finally, you have two different positioning files that can be compared on Google Maps.
 
