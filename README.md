@@ -118,7 +118,7 @@ Go to working directory webserver_mqtt_drones
       links 10.0.0.8:3000/genmap
     ```
 
-5. To copy the file from the WebClient host, run the following command on your host machine:
+5. On your host machine, run the following command to copy the file from the WebClient host:
     ```bash
       $ sudo docker cp WebClient:/root/positions.kml .
     ```
@@ -129,7 +129,7 @@ Go to working directory webserver_mqtt_drones
     ```
     ![](moved.png)
 
-7. Start links web browser to observe the new position of drone 3 over Trento:
+7. From WebClient (Xterm), observe the new position of drone 3 over Trento:
     ```bash
       links 10.0.0.8:3000/positions
     ```
