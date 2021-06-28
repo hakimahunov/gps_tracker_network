@@ -105,7 +105,7 @@ or
 ```bash
   $ sudo python3 topology.py
 ```  
-3. From WebClient (Xterm), start links web browser to observe the drones positions over Trento:
+3. From WebClient (Xterm), start links web browser to observe the initial drones' positions over Trento:
 ```bash
   links 10.0.0.8:3000/positions
 ```
@@ -127,7 +127,7 @@ or
 ```
   ![](moved.png)
 
-7. From WebClient (Xterm), start links web browser to observe the new position of drone 3 over Trento:
+7. Start links web browser to observe the new position of drone 3 over Trento:
 ```bash
   links 10.0.0.8:3000/positions
 ```
@@ -135,6 +135,6 @@ or
   
 8. Repeat steps 4 and 5 to obtain a new map file (.kml)
   
-9. Finally, you have two different positioning files that can be compared on Google Maps.
+9. You now have two different positioning files that can be compared on Google Maps showing that drone 3 actually moved.
 
   ![](maps-compare.gif)
