@@ -56,7 +56,7 @@ where, D(id) - drone, MB - mqtt broker, WS - web server, WC - web client.
 ```
 .
 ├── README.md                   : This file
-├── pingall.png  	            : pingall image in this description
+├── pingall.png                 : pingall image in this description
 ├── topology.png                : topology image in this description
 ├── maps-compare.gif            : maps comparison image in this description
 └── webserver_mqtt_drones       : Working directory
@@ -73,7 +73,7 @@ where, D(id) - drone, MB - mqtt broker, WS - web server, WC - web client.
         ├── app.js              : Web server's behavior description
         ├── bin
         │   └── www             : Web application's binary file
-        ├── package.json
+        ├── package.json        : Web application's node.js dependencies
         ├── public
         │   ├── javascripts
         │   │   └── mqtt.js     : Web server's MQTT connection description
