@@ -23,31 +23,31 @@ if __name__ == "__main__":
     # 1 MQTT broker (h7), 1 web server (h8) and 1 web client (h9)
     
     h1 = net.addDockerHost(
-        "D1", dimage="my_dev_test", ip="10.0.0.1", mac="00:00:00:00:00:01", docker_args={"hostname":"drone1"}
+        "D1", dimage="dev_test", ip="10.0.0.1", mac="00:00:00:00:00:01", docker_args={"hostname":"drone1"}
     )
     h2 = net.addDockerHost(
-        "D2", dimage="my_dev_test", ip="10.0.0.2", mac="00:00:00:00:00:02", docker_args={"hostname":"drone2"}
+        "D2", dimage="dev_test", ip="10.0.0.2", mac="00:00:00:00:00:02", docker_args={"hostname":"drone2"}
     )
     h3 = net.addDockerHost(
-        "D3", dimage="my_dev_test", ip="10.0.0.3", mac="00:00:00:00:00:03", docker_args={"hostname":"drone3"}
+        "D3", dimage="dev_test", ip="10.0.0.3", mac="00:00:00:00:00:03", docker_args={"hostname":"drone3"}
     )
     h4 = net.addDockerHost(
-        "D4", dimage="my_dev_test", ip="10.0.0.4", mac="00:00:00:00:00:04", docker_args={"hostname":"drone4"}
+        "D4", dimage="dev_test", ip="10.0.0.4", mac="00:00:00:00:00:04", docker_args={"hostname":"drone4"}
     )
     h5 = net.addDockerHost(
-        "D5", dimage="my_dev_test", ip="10.0.0.5", mac="00:00:00:00:00:05", docker_args={"hostname":"drone5"}
+        "D5", dimage="dev_test", ip="10.0.0.5", mac="00:00:00:00:00:05", docker_args={"hostname":"drone5"}
     )
     h6 = net.addDockerHost(
-        "D6", dimage="my_dev_test", ip="10.0.0.6", mac="00:00:00:00:00:06", docker_args={"hostname":"drone6"}
+        "D6", dimage="dev_test", ip="10.0.0.6", mac="00:00:00:00:00:06", docker_args={"hostname":"drone6"}
     )
     h7 = net.addDockerHost(
-        "MB", dimage="my_dev_test", ip="10.0.0.7", mac="00:00:00:00:00:07", docker_args={"hostname":"broker"}
+        "MB", dimage="dev_test", ip="10.0.0.7", mac="00:00:00:00:00:07", docker_args={"hostname":"broker"}
     )
     h8 = net.addDockerHost(
-        "WS", dimage="my_dev_test", ip="10.0.0.8", mac="00:00:00:00:00:08", docker_args={"hostname":"server"}
+        "WS", dimage="dev_test", ip="10.0.0.8", mac="00:00:00:00:00:08", docker_args={"hostname":"server"}
     )
     h9 = net.addDockerHost(
-        "WC", dimage="my_dev_test", ip="10.0.0.9", mac="00:00:00:00:00:09", docker_args={"hostname":"client"}
+        "WC", dimage="dev_test", ip="10.0.0.9", mac="00:00:00:00:00:09", docker_args={"hostname":"client"}
     )
 
     print("*** Creating switches")

@@ -15,4 +15,5 @@ docker build -t server --file ./Dockerfile.webserver .
 echo "Building a docker image for the my dev client image."
 docker build -t client --file ./Dockerfile.client .
 
-
+echo "Building dev_test image"
+docker build -t dev_test --file /home/vagrant/comnetsemu/test_containers/Dockerfile.dev_test .
