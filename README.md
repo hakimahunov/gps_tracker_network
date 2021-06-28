@@ -22,18 +22,18 @@ The topology of the network is presented in the figure below. Given six drones f
   - sends the request to the web server to generate a .kml file suitable for displaying the drones' position in Google Maps
 * Web server
   - responds to the Client, sending back an html web page or generating a .kml file with the drones' position
-  - sends a request to the MQTT broker to subscribe to a topic
-  - publishes a MQTT message to order a drone to move to a random position
+  - sends a request to the MQTT broker to subscribe to MQTT topics
+  - publishes a MQTT message to order a drone to move to a given position
 * MQTT broker
-  - allows for connections, creations of topics and subscribe/publish operations. We consider the following topics:
-    - "log": where each component publishes logs for debug purposes
+  - mediates MQTT subscribe/publish operations for the following topics:
+    - "log": where each network component publishes logs for debug purposes
     - "positions": where drones publish updates on their position
-    - "command_${ID}": where the Web Server sends commands to the drone with the specified ID to move to a given position
-    - "current_position": where the Web Server sends commands to all drones to receive their current position
+    - "command_${ID}": where the web server sends commands to the drone with the specified ID to move to a given position
+    - "current_position": where the web server sends commands to all drones to retrieve their current position
 * Drone
   - moves to a new position
-  - sends a request to the MQTT broker to subscribe to a topic
-  - publishes a MQTT message when the Web Server asks for the drone's position
+  - sends a request to the MQTT broker to subscribe to MQTT topics
+  - publishes a MQTT message when the web server asks for the drone's position
 
 ### Topology
 
